@@ -26,26 +26,25 @@ export const AuthGoogleProvider = ({ children }) => {
 
   const singIn = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        setUser(user);
-        sessionStorage.setItem("@AuthFirebase:Token", token)
-        setUser(user);
-        sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user));
-
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+      setUser(user);
+      sessionStorage.setItem("@AuthFirebase:token", token);
+      sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user));
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
       });
   }
 
   return (
     <authGoogleContext.Provider
-     value={{ singIn, singed: !!user }}>
+     value={{ singIn, signed: !!user }}>
       {children}
     </authGoogleContext.Provider> 
   )

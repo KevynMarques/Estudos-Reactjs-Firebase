@@ -43,7 +43,7 @@ if(!signed){
   
   )
 } else {
-   return console.log('logado')
+   return <Navigate to="/Page2"/>
 }   
 
 }; 

@@ -5,6 +5,6 @@ import { Navigate } from 'react-router-dom';
 
 
 export const RotaPrivada  = () =>{
- const {singed} = useContext (authGoogleContext); 
- return singed ? <Outlet /> : <Navigate path="/" /> 
+ const {signed} = useContext (authGoogleContext); 
+ return signed ? <Outlet /> : <Navigate path="/" /> 
 }
