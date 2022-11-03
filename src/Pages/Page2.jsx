@@ -1,8 +1,8 @@
-import React from "react";
+import React from "react"
+import { UserLogado } from "../Components/UserLogado"
+
 
 
 export const Page2 = ()=>{
-   return(
-     <h1 > alo mundo me ajuda </h1>
-   );
+ return <UserLogado />
 }

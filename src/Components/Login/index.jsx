@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { BoxHome, BoxLogin, ButtomLogin, InputDeLogin,LoginGoogle,
  Remember, RememberPassword, TextLogin, TextRemember, TextTittle} from "./style";
 
+
  
 
 export const Login =()=>{
@@ -14,6 +15,7 @@ export const Login =()=>{
    async function StartGoogle () {
         await singIn(); 
   };  
+
 // teste 
    
 if(!signed){
