@@ -1,11 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { BoxHome } from "../Login/style";
-import { InconName, TextName } from "./style";
+import { authGoogleContext } from "../../services/AuthGoogle";
+import { InconName, TextName,LogOut, ButtonLogOut,
+Account} from "./style";
 
 
 export const UserLogado = ()=>{
-
+   const {signOut} = useContext(authGoogleContext); 
    const Name = sessionStorage.getItem('@AuthFirebase:user')
    const key  = JSON.parse(Name); 
 
@@ -20,18 +22,25 @@ export const UserLogado = ()=>{
     return  initials; 
   }
   
-
   const [nameUser, setNameUser] = useState (firstLetters(key.displayName)); 
-
+  const [logOut, setLogOut] = useState(''); 
  
-    
+
    return ( 
      <BoxHome>
       <InconName>
         <TextName>
            {nameUser}
         </TextName>
-      </InconName>
+      </InconName> 
+      <LogOut> 
+        <Account>
+          Account
+        </Account>
+        <ButtonLogOut onClick={()=>{signOut()}}>
+          Log Out
+        </ButtonLogOut>
+      </LogOut>
     </BoxHome>
    );
 }

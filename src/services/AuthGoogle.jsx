@@ -4,6 +4,7 @@ import { app } from "./firababseConfig";
 import { createContext } from 'react';
 import { useState } from "react";
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 const provider = new GoogleAuthProvider();
 
 
@@ -40,11 +41,20 @@ export const AuthGoogleProvider = ({ children }) => {
       const email = error.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
       });
-  }
+  } 
+
+  function signOut () {
+     sessionStorage.clear(); 
+     setUser(null); 
+
+     return <Navigate to="/"/>; 
+  } 
+
+
 
   return (
     <authGoogleContext.Provider
-     value={{ singIn, signed: !!user }}>
+     value={{ singIn, signed: !!user, signOut}}>
       {children}
     </authGoogleContext.Provider> 
   )
