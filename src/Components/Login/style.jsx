@@ -28,7 +28,7 @@ export const BoxLogin = styled.div`
   margin-left: 50vw;
   display: flex;
   flex-direction: column;
-  padding-top: 60px;
+  padding-top: 80px;
 `;
 
 export const InputDeLogin = styled.input`
@@ -45,7 +45,7 @@ export const TextLogin = styled.label`
  font-family: Arial, Helvetica, sans-serif;
  font-size: 12px;
  margin-left: 10%;
- margin-top: 30px;
+ margin-top: 25px;
 `;
 
 
@@ -77,7 +77,8 @@ export const ButtomLogin = styled.button`
  font-size: 15px;
  color:#170d43;
  margin-left: 125px;
- margin-top: 25px;
+ margin-top: 55px;
+ cursor: pointer;
 `;
 
 
@@ -85,21 +86,32 @@ export const RememberPassword = styled.a`
 cursor: pointer;
 color: white;
 text-align: center;
-margin-top: 35px;
-text-decoration: underline;
+margin-top: 15px;
 font-family: Arial, Helvetica, sans-serif;
+font-size: 14px;
 `;
+
+
+export const Registration = styled.a`
+cursor: pointer;
+text-align: center;
+margin-top: 15px;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 14px;
+color: #7474f3;
+`
+
 
 export const LoginGoogle = styled.button`
   @import url('https://fonts.googleapis.com/css2?family=Macondo&family=Roboto:wght@500&display=swap');
- height: 50px;
+ height: 40px;
  border: none;
  border-radius: 10px;
  font-weight: bold;
  font-family: 'Roboto', sans-serif;
  font-size: 20px;
  color:#170d43;
- margin-top: 45px;
+ margin-top: 80px;
  margin-left: 15px;
  margin-right: 15px; 
  cursor: pointer;
@@ -109,3 +121,4 @@ export const LoginGoogle = styled.button`
  }
  
 `
+

@@ -6,17 +6,18 @@ import { Page2 } from "../Pages/Page2";
 
 
 
+
 export default () => {
   return (
     <Fragment>
-    <BrowserRouter >
-    <Routes >
-      <Route path="/" element={<Page1 />} /> 
-      <Route path="/Page2" element={<RotaPrivada />}>
-      <Route path="/Page2" element={<Page2 />} /> 
-      </Route>
-    </Routes>
-    </BrowserRouter>
+      <BrowserRouter >
+        <Routes >
+          <Route path="/" element={<Page1 />} />
+          <Route path="/Page2" element={<RotaPrivada />}>
+            <Route path="/Page2" element={<Page2 />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Fragment>
   );
 }

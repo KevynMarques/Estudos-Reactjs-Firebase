@@ -12,7 +12,7 @@ export const authGoogleContext = createContext({})
 
 export const AuthGoogleProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const auth = getAuth(app);
+  const auth = getAuth(app);                                                                                                                                                                                                                                                                                                                                                                                                                            
   
   useEffect(() => {
     const loadStorageData = () => {
@@ -23,9 +23,9 @@ export const AuthGoogleProvider = ({ children }) => {
       }
     };
     loadStorageData();
-  });
+  },);
 
-  const singIn = () => {
+  const signIn = () => {
     signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -40,21 +40,18 @@ export const AuthGoogleProvider = ({ children }) => {
       const errorMessage = error.message;
       const email = error.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
-      });
+    });
   } 
 
   function signOut () {
-     sessionStorage.clear(); 
      setUser(null); 
-
+     sessionStorage.clear(); 
      return <Navigate to="/"/>; 
   } 
 
-
-
   return (
     <authGoogleContext.Provider
-     value={{ singIn, signed: !!user, signOut}}>
+     value={{ signIn, signed: !!user, signOut}}>
       {children}
     </authGoogleContext.Provider> 
   )
