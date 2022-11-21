@@ -1,40 +1,27 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { authGoogleContext } from "../../services/AuthGoogle";
+import { RegisterContext } from "../Register";
 import { Navigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../services/firababseConfig";
 import {
 BoxHome, BoxLogin, ButtomLogin,
 InputDeLogin, LoginGoogle,
-RememberPassword, TextLogin,
+RememberPassword,TextLogin,
 TextTittle, Registration
 } from "./style";
 
 export const Login = () => {
-
 const { signIn, signed } = useContext(authGoogleContext);
+const {TelaCadastro} = useContext(RegisterContext); 
+
+
   async function StartGoogle() {
     await signIn();
   };
 
-  const [registro, setRegistro] = useState(LoginOrRegister());
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
-  
-  function Registrando (e) {
-    e.preventDefault(); 
-    createUserWithEmailAndPassword(email, password); 
-  }
+  const [registro, setRegistro] = useState(LoginOrRegister);
 
-  if(loading) {
-    <p> carregando ... </p>
-  }
-
-  
-  console.log(error); 
 
   function LoginOrRegister() {
     return (<>
@@ -54,37 +41,14 @@ const { signIn, signed } = useContext(authGoogleContext);
         Esqueci minha senha
       </RememberPassword>
       <Registration onClick={() => {
-        setRegistro(Cadastro)
+        setRegistro(TelaCadastro)
       }}>
         Cadastre-se
       </Registration>
       <LoginGoogle onClick={StartGoogle}>Entrar com Google
       </LoginGoogle></>)
   }
-
-  function Cadastro() {
-    return (<>
-      <TextLogin> Novo usuario</TextLogin>
-      <InputDeLogin
-      type="email" 
-      id="email" name="email" 
-      placeholder="Digite Seu Email" 
-      onChange={(e) => setEmail(e.target.value)} />
-      <br></br>
-        
-      <TextLogin>Senha</TextLogin>
-      <InputDeLogin 
-      type="text"
-      id="password" 
-      name="password" 
-      placeholder="Digita sua Senha"  
-      onChange={(e) => setPassword(e.target.value)}/>
-      <ButtomLogin onClick={Registrando}>
-        Cadastrar
-      </ButtomLogin> 
-    </>)
-  } 
-
+ 
   if (!signed) {
     return (
       <BoxHome>

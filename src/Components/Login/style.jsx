@@ -91,6 +91,9 @@ font-family: Arial, Helvetica, sans-serif;
 font-size: 14px;
 `;
 
+export const Forms = styled.form`
+  
+`
 
 export const Registration = styled.a`
 cursor: pointer;

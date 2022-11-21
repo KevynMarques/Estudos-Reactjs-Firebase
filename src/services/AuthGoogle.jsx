@@ -5,10 +5,12 @@ import { createContext } from 'react';
 import { useState } from "react";
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+
+
+
 const provider = new GoogleAuthProvider();
-
-
 export const authGoogleContext = createContext({})
+
 
 export const AuthGoogleProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -50,8 +52,7 @@ export const AuthGoogleProvider = ({ children }) => {
   } 
 
   return (
-    <authGoogleContext.Provider
-     value={{ signIn, signed: !!user, signOut}}>
+    <authGoogleContext.Provider value={{ signIn, signed: !!user, signOut}}>
       {children}
     </authGoogleContext.Provider> 
   )
