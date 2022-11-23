@@ -1,7 +1,6 @@
 import React from "react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { authGoogleContext } from "../../services/AuthGoogle";
-import { RegisterContext } from "../Register";
 import { Navigate } from "react-router-dom";
 import {
 BoxHome, BoxLogin, ButtomLogin,
@@ -12,20 +11,21 @@ TextTittle, Registration
 
 export const Login = () => {
 const { signIn, signed } = useContext(authGoogleContext);
-const {TelaCadastro} = useContext(RegisterContext); 
 
 
   async function StartGoogle() {
     await signIn();
   };
 
-
-  const [registro, setRegistro] = useState(LoginOrRegister);
-
-
-  function LoginOrRegister() {
-    return (<>
-      <TextLogin>Usuario</TextLogin>
+ 
+  if (!signed) {
+    return (
+      <BoxHome>
+        <TextTittle>
+          Plataforma de Apontamento
+        </TextTittle>
+        <BoxLogin>
+        <TextLogin>Usuario</TextLogin>
       <InputDeLogin type="email" 
       id="email" name="email"
        placeholder="SeuEmail@hotmail.com.br" />
@@ -40,23 +40,12 @@ const {TelaCadastro} = useContext(RegisterContext);
       <RememberPassword>
         Esqueci minha senha
       </RememberPassword>
-      <Registration onClick={() => {
-        setRegistro(TelaCadastro)
-      }}>
+      <Registration onClick={() => {<Navigate to="/Page3"/>
+      }}> 
         Cadastre-se
       </Registration>
       <LoginGoogle onClick={StartGoogle}>Entrar com Google
-      </LoginGoogle></>)
-  }
- 
-  if (!signed) {
-    return (
-      <BoxHome>
-        <TextTittle>
-          Plataforma de Apontamento
-        </TextTittle>
-        <BoxLogin>
-          {registro}
+      </LoginGoogle>
         </BoxLogin>
       </BoxHome>
 

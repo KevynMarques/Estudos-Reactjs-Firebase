@@ -102,6 +102,9 @@ margin-top: 15px;
 font-family: Arial, Helvetica, sans-serif;
 font-size: 14px;
 color: #7474f3;
+&:hover {
+  color: #00b7ff;
+}
 `
 
 

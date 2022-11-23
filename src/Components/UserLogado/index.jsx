@@ -7,7 +7,6 @@ import {
   TextName, LogOut, ButtonLogOut, Account, SeusApontamentos,
   ContainerInterface, BoxFullName, BoxApontamentos, MesApontamento, TempoApontamento, AddApontamento
 } from "./style";
-import { renderIntoDocument } from "react-dom/test-utils";
 
 
 export const UserLogado = () => {
