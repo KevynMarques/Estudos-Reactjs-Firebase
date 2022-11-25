@@ -1,18 +1,20 @@
 import React from 'react'
 import { useState } from 'react';
-import { createContext } from 'react'
 import { TextLogin, InputDeLogin, ButtomLogin, Forms,BoxHome,BoxLogin,TextTittle} from '../Login/style'; 
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { CustomContext } from "../../services/CustomContext"
+import { useContext } from 'react';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../services/firababseConfig';
-import { Navigate } from 'react-router-dom';
+import { Voltar } from './Style';
+import { Login } from '../Login';
 
-export const RegisterContext = createContext({})
 
 export const  Register = () => {
 const auth = getAuth(app);
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('') 
+const  {setTelaCadastro} = useContext(CustomContext); 
 
 const [
   createUserWithEmailAndPassword,
@@ -27,9 +29,6 @@ function CadastrarUser(e) {
  } 
 
 
- function TESTE () {
-  return <Navigate to="/" /> 
- }
 
 if (loading) {
   return (
@@ -45,8 +44,7 @@ if (error) {
     </div> 
   );
  }
- 
-
+  
 
   return ( 
     <BoxHome>
@@ -72,11 +70,15 @@ if (error) {
       placeholder="Digita sua Senha"  
       onChange={(e) => setPassword(e.target.value)}
       />
-      <ButtomLogin onClick={TESTE} > 
+      <ButtomLogin onClick={CadastrarUser} > 
         Cadastrar
       </ButtomLogin> 
-      </Forms>
- 
+      </Forms> 
+        <Voltar onClick={()=>{
+          setTelaCadastro(<Login />)
+        }}>
+         Voltar
+        </Voltar>
     </BoxLogin>
   </BoxHome>
 

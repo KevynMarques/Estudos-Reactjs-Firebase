@@ -1,9 +1,11 @@
 import React from "react";
-import {Login} from "../Components/Login"
+import { useContext } from "react";
+import { CustomContext } from "../services/CustomContext";
 
-
-export const Page1 = ()=>{
-   return(
-    <Login />
-   );
-}
+export const Page1 = () => {
+   const  {telaCadastro} = useContext(CustomContext); 
+   return (
+   <> 
+   {telaCadastro}
+   </>
+   )}
