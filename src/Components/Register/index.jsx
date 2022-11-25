@@ -8,13 +8,14 @@ import { getAuth } from 'firebase/auth';
 import { app } from '../../services/firababseConfig';
 import { Voltar } from './Style';
 import { Login } from '../Login';
+import { useEffect } from 'react';
 
 
 export const  Register = () => {
 const auth = getAuth(app);
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('') 
-const  {setTelaCadastro} = useContext(CustomContext); 
+const {setTelaCadastro} = useContext(CustomContext); 
 
 const [
   createUserWithEmailAndPassword,
@@ -23,29 +24,22 @@ const [
   error,
 ] = useCreateUserWithEmailAndPassword(auth);
 
-function CadastrarUser(e) {
+ function CadastrarUser(e) {
   e.preventDefault(); 
-  createUserWithEmailAndPassword(email, password);   
+  createUserWithEmailAndPassword(email, password); 
+   return CadastroOK(); 
  } 
 
 
-
-if (loading) {
-  return (
-    <div>
-      <p>Initialising User...</p>
-    </div> 
-  );
+function CadastroOK () {
+  if(error) {
+    alert(error.message)
+  } else { 
+    setTelaCadastro(<Login />)
+    alert('Cadastrado com suceso')
+  }
 }
-if (error) {
-  return (
-    <div>
-      <p>Error: {error.message}</p>
-    </div> 
-  );
- }
-  
-
+ 
   return ( 
     <BoxHome>
     <TextTittle>

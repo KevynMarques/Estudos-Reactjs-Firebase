@@ -1,9 +1,12 @@
 import React from "react";
 import { useContext } from "react";
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { authGoogleContext } from "../../services/AuthGoogle";
 import { Navigate } from "react-router-dom";
 import { Register } from "../Register";
-import { CustomContext } from "../../services/CustomContext"
+import { getAuth } from "firebase/auth";
+import { app } from "../../services/firababseConfig";
+import { CustomContext } from "../../services/CustomContext";
 import {
 BoxHome, BoxLogin, ButtomLogin,
 InputDeLogin, LoginGoogle,
@@ -13,8 +16,40 @@ TextTittle, Registration
 
 
 export const Login = () => {
+const auth = getAuth(app);
 const { signIn, signed } = useContext(authGoogleContext);
 const  {setTelaCadastro} = useContext(CustomContext); 
+const {email, setEmail, password, setPassword} = useContext(CustomContext); 
+    
+    const [
+      signInWithEmailAndPassword,
+      user,
+      loading,
+      error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    function LoginEmail (e) {
+      e.preventDefault(); 
+      signInWithEmailAndPassword(email, password);
+    }
+  
+    if (error) {
+      return (
+        <div>
+          <p>Error: {error.message}</p>
+        </div>
+      );
+    }
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+    if (user) {
+      return (
+        <div>
+          <p>Signed In User:{user.email}</p>
+        </div>
+      );
+    }
 
 
   async function StartGoogle() {
@@ -30,15 +65,21 @@ const  {setTelaCadastro} = useContext(CustomContext);
         </TextTittle>
         <BoxLogin>
         <TextLogin>Usuario</TextLogin>
-      <InputDeLogin type="email" 
+      <InputDeLogin 
+      onChange={(e) => setEmail(e.target.value)}
+      type="email" 
+      value={email}
       id="email" name="email"
-       placeholder="SeuEmail@hotmail.com.br" />
+      placeholder="seuEmail@hotmail.com.br" />
       <TextLogin>Senha</TextLogin>
-      <InputDeLogin type="text"
+      <InputDeLogin 
+      onChange={(e) => setPassword(e.target.value)}
+      type="password"
        id="password" 
+       value={password}
        name="password"
         placeholder="***************" />
-      <ButtomLogin>
+      <ButtomLogin onClick={LoginEmail}>
         ENTRAR
       </ButtomLogin>
       <RememberPassword>
