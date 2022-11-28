@@ -1,12 +1,17 @@
 import React from "react";
 import { useContext } from "react";
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { authGoogleContext } from "../../services/AuthGoogle";
 import { Navigate } from "react-router-dom";
-import { Register } from "../Register";
-import { getAuth } from "firebase/auth";
-import { app } from "../../services/firababseConfig";
 import { CustomContext } from "../../services/CustomContext";
+import { useState } from "react";
+import { getAuth } from "firebase/auth";
+import { app } from "../../services/FirebaseConfig";
+import {Register} from "../Register/index"
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { useEffect } from "react";
 import {
 BoxHome, BoxLogin, ButtomLogin,
 InputDeLogin, LoginGoogle,
@@ -16,44 +21,39 @@ TextTittle, Registration
 
 
 export const Login = () => {
-const auth = getAuth(app);
+
 const { signIn, signed } = useContext(authGoogleContext);
 const  {setTelaCadastro} = useContext(CustomContext); 
-const {email, setEmail, password, setPassword} = useContext(CustomContext); 
+const {loginEmail, setLoginEmail, loginPassword, setLoginPassword} = useContext(CustomContext); 
     
-    const [
-      signInWithEmailAndPassword,
-      user,
-      loading,
-      error,
-    ] = useSignInWithEmailAndPassword(auth);
-
-    function LoginEmail (e) {
-      e.preventDefault(); 
-      signInWithEmailAndPassword(email, password);
-    }
-  
-    if (error) {
-      return (
-        <div>
-          <p>Error: {error.message}</p>
-        </div>
-      );
-    }
-    if (loading) {
-      return <p>Loading...</p>;
-    }
-    if (user) {
-      return (
-        <div>
-          <p>Signed In User:{user.email}</p>
-        </div>
-      );
-    }
-
 
   async function StartGoogle() {
     await signIn();
+  };
+  
+  const auth = getAuth(app); 
+
+const [user, setUser] = useState({});
+
+
+useEffect(()=>{
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+},[])
+
+
+async function loginEnter () {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log(user._tokenResponse.email);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
  
@@ -61,31 +61,33 @@ const {email, setEmail, password, setPassword} = useContext(CustomContext);
     return (
       <BoxHome>
         <TextTittle>
-          Plataforma de Apontamento
+          Plataforma de Estudos Reactjs
         </TextTittle>
         <BoxLogin>
         <TextLogin>Usuario</TextLogin>
       <InputDeLogin 
-      onChange={(e) => setEmail(e.target.value)}
+      onChange={(e) => setLoginEmail(e.target.value)}
       type="email" 
-      value={email}
+      value={loginEmail}
       id="email" name="email"
       placeholder="seuEmail@hotmail.com.br" />
       <TextLogin>Senha</TextLogin>
       <InputDeLogin 
-      onChange={(e) => setPassword(e.target.value)}
+      onChange={(e) => setLoginPassword(e.target.value)}
       type="password"
        id="password" 
-       value={password}
+       value={loginPassword}
        name="password"
         placeholder="***************" />
-      <ButtomLogin onClick={LoginEmail}>
+      <ButtomLogin onClick={loginEnter}>
         ENTRAR
       </ButtomLogin>
       <RememberPassword>
         Esqueci minha senha
       </RememberPassword>
-      <Registration onClick={() => {setTelaCadastro(<Register />)}}> 
+      <Registration onClick={()=>{
+      setTelaCadastro(<Register />)
+      }} > 
         Cadastre-se
       </Registration>
       <LoginGoogle onClick={StartGoogle}>Entrar com Google

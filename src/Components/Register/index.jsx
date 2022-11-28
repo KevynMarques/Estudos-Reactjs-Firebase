@@ -5,7 +5,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { CustomContext } from "../../services/CustomContext"
 import { useContext } from 'react';
 import { getAuth } from 'firebase/auth';
-import { app } from '../../services/firababseConfig';
+import { app } from '../../services/FirebaseConfig';
 import { Voltar } from './Style';
 import { Login } from '../Login';
 import { useEffect } from 'react';
