@@ -14,6 +14,7 @@ export const authGoogleContext = createContext({})
 
 export const AuthGoogleProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [name, setName] = useState('');
   const auth = getAuth(app);                                                                                                                                                                                                                                                                                                                                                                                                                            
   
   useEffect(() => {
@@ -27,7 +28,8 @@ export const AuthGoogleProvider = ({ children }) => {
     loadStorageData();
   },);
 
-  const signIn = () => {
+  const signIn = () => { 
+
     signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -42,7 +44,7 @@ export const AuthGoogleProvider = ({ children }) => {
       const errorMessage = error.message;
       const email = error.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
-    });
+    }); 
   } 
 
   function signOut () {

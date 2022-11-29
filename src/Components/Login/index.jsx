@@ -7,6 +7,9 @@ import { useState } from "react";
 import { getAuth } from "firebase/auth";
 import { app } from "../../services/FirebaseConfig";
 import {Register} from "../Register/index"
+import { getFirestore, collection,addDoc,
+} from "firebase/firestore";
+import { getDocs } from "firebase/firestore";
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -26,6 +29,8 @@ const { signIn, signed } = useContext(authGoogleContext);
 const  {setTelaCadastro} = useContext(CustomContext); 
 const {loginEmail, setLoginEmail, loginPassword, setLoginPassword} = useContext(CustomContext); 
     
+const db = getFirestore(app);
+const usersCollectionRef = collection(db, "users");
 
   async function StartGoogle() {
     await signIn();
@@ -43,14 +48,18 @@ useEffect(()=>{
 },[])
 
 
-async function loginEnter () {
+async function loginEnter () { 
     try {
       const user = await signInWithEmailAndPassword(
         auth,
         loginEmail,
         loginPassword
-      );
-      console.log(user._tokenResponse.email);
+      ).then(async(data)=>{
+        const uid = data.user.uid; 
+      }); 
+      
+     const data = await getDocs(usersCollectionRef);
+     console.log(data.docs)
     } catch (error) {
       console.log(error.message);
     }
