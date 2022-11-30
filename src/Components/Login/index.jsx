@@ -47,24 +47,37 @@ useEffect(()=>{
   });
 },[])
 
+ 
+
+useEffect(()=>{
+
+},[])
 
 async function loginEnter () { 
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      ).then(async(data)=>{
-        const uid = data.user.uid; 
-      }); 
-      
-     const data = await getDocs(usersCollectionRef);
-     console.log(data.docs)
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  try {
+    await signInWithEmailAndPassword(
+      auth,
+      loginEmail,
+      loginPassword
+    ).then(async(data)=>{
+      const uid = data.user.uid;
+      const querySnapshot = await getDocs(usersCollectionRef);
+      querySnapshot.forEach((doc) => {
+        if(doc.id === uid){
+          console.log(doc.data());
+          
+        }
 
+      });
+
+    }); 
+
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+ 
  
   if (!signed) {
     return (
