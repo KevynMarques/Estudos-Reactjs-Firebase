@@ -11,7 +11,7 @@ import { getAuth } from 'firebase/auth';
 import { app } from '../../services/FirebaseConfig';
 import { Voltar } from './Style';
 import { Login } from '../Login';
-import { getFirestore, collection,addDoc, setDoc, doc,
+import { getFirestore,setDoc, doc,
 } from "firebase/firestore";
 
 
@@ -19,8 +19,7 @@ export const Register = () => {
 
   const auth = getAuth(app);
   const db = getFirestore(app);
-
-  const [id, setId] = useState("");
+  
   const [email, setEmail] = useState('') 
   const [password, setPassword] = useState('')
   const [name, setName] = useState("");

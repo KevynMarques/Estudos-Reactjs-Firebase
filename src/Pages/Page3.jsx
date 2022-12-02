@@ -1,6 +1,8 @@
-import React from 'react'
-import LogedEmail from '../Components/LogedEmail'
+import React from "react"
+import LogedEmail from "../Components/LogedEmail"
 
-export default function Page3() {
-  return <LogedEmail /> 
+
+
+export const Page3 = ()=>{
+ return <LogedEmail />
 }

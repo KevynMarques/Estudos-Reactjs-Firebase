@@ -10,10 +10,11 @@ InputDeLogin, LoginGoogle,
 RememberPassword,TextLogin,
 TextTittle, Registration
 } from "./style";
+import { runTransaction } from "firebase/firestore";
 
 export const Login = () => {
 
-const { signIn, signed, loginEnter } = useContext(authLoginContext);
+const { signIn, signed, loginEnter, signedEmail } = useContext(authLoginContext);
 const {loginEmail, setLoginEmail, loginPassword,
    setLoginPassword, setTelaCadastro } = useContext(CustomContext); 
 
@@ -26,7 +27,7 @@ const {loginEmail, setLoginEmail, loginPassword,
     await loginEnter(); 
   }
 
-  if (!signed) { 
+  if (!signed || !signedEmail ) { 
 
     return ( 
       <BoxHome>
@@ -66,8 +67,13 @@ const {loginEmail, setLoginEmail, loginPassword,
       </BoxHome>
 
     )
-  } else {
-    return <Navigate to="/Page2" />
+  }  else if  (signed) {
+
+    return  <Navigate to="/Page2" />
+
+  } else if (signedEmail) {
+
+    return <Navigate to="/Page3" />
   }
 
 };

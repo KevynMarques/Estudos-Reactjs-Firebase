@@ -92,8 +92,9 @@ export const AuthLoginProvider = ({ children }) => {
         const querySnapshot = await getDocs(usersCollectionRef);
         querySnapshot.forEach((doc) => {
           if(doc.id === uid){
-            setUserOBJ(doc.data());
-            console.log(userOBJ); 
+           const dadosUser = doc.data(); 
+           setUser(dadosUser);
+           sessionStorage.setItem("@AuthEmailPassword:dadosUser", JSON.stringify(dadosUser))
           }
   
         });
@@ -108,7 +109,7 @@ export const AuthLoginProvider = ({ children }) => {
 
 
   return (
-    <authLoginContext.Provider value={{ signIn, signed: !!user, signOut, loginEnter }}>
+    <authLoginContext.Provider value={{ signIn, signed: !!user, signOut, loginEnter, signedEmail: !!user }}>
       {children}
     </authLoginContext.Provider>
   )
