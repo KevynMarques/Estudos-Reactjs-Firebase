@@ -1,8 +1,11 @@
 import React from "react"
-import { UserLogado } from "../Components/UserLogado"
+import { UserLogadoGoogle } from "../Components/LogedGoogle"
+import {LogedEmail} from "../Components/LogedEmail"
+import { useContext } from "react"
+import { authLoginContext } from "../services/AuthLogin"
 
 
 
-export const Page2 = ()=>{
- return <UserLogado />
+export const Page2 = ()=>{ 
+ return <UserLogadoGoogle />
 }

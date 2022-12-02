@@ -1,11 +1,16 @@
 import React, { useContext } from 'react'
 import { Outlet } from 'react-router-dom';
-import { authGoogleContext } from '../services/AuthGoogle'
+import { authLoginContext } from '../services/AuthLogin'
 import { Navigate } from 'react-router-dom';
 
 
-export const RotaPrivada  = () =>{
- const {signed} = useContext (authGoogleContext); 
- return signed ? <Outlet /> : <Navigate to="/" /> 
-}
+export const RotaPrivadaGoogle  = () =>{
+ const {signed} = useContext (authLoginContext); 
+
+if(signed) {
+ return <Outlet /> 
+}else {
+  return <Navigate to="/" />
+}}
                                                               
+

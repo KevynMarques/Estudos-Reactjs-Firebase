@@ -1,16 +1,16 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { BoxHome } from "../Login/style";
-import { authGoogleContext } from "../../services/AuthGoogle";
+import { authLoginContext } from "../../services/AuthLogin";
 import {
-  InconName,
+  IconName,
   TextName, LogOut, ButtonLogOut, Account, SeusApontamentos,
   ContainerInterface, BoxFullName, BoxApontamentos, MesApontamento, TempoApontamento, AddApontamento
 } from "./style";
 
 
-export const UserLogado = () => {
-  const { signOut } = useContext(authGoogleContext);
+export const UserLogadoGoogle = () => {
+  const { signOut } = useContext(authLoginContext);
   const Name = sessionStorage.getItem('@AuthFirebase:user')
   const key = JSON.parse(Name);
 
@@ -51,13 +51,13 @@ export const UserLogado = () => {
 
   return (
     <BoxHome>
-      <InconName onClick={() => {
+      <IconName onClick={() => {
         setLogOut(OpenLogOut)
       }}>
         <TextName>
           {nameUser}
         </TextName>
-      </InconName>
+      </IconName>
       {logOut}
       <SeusApontamentos>
         Meus <br /> apontamentos

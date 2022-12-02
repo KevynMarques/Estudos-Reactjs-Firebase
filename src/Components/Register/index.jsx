@@ -19,7 +19,6 @@ export const Register = () => {
 
   const auth = getAuth(app);
   const db = getFirestore(app);
-  const usersCollectionRef = collection(db, "users");
 
   const [id, setId] = useState("");
   const [email, setEmail] = useState('') 

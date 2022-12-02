@@ -1,16 +1,16 @@
 import React from "react";
 import Router from "./Routers/router";
 import { GlobalStyle } from "./GlobalStyle";
-import { AuthGoogleProvider } from "./services/AuthGoogle";
+import { AuthLoginProvider } from "./services/AuthLogin";
 
 
 
 function App() {
   return (
-    <AuthGoogleProvider>
+    <AuthLoginProvider>
     <Router/> 
     <GlobalStyle/>
-    </AuthGoogleProvider>
+    </AuthLoginProvider>
   )
 }
 

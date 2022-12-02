@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const InconName = styled.div`
+export const IconName = styled.div`
 background-color:  white;
 width: 65px;
 height: 65px;

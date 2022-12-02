@@ -1,20 +1,9 @@
 import React from "react";
 import { useContext } from "react";
-import { authGoogleContext } from "../../services/AuthGoogle";
+import { authLoginContext } from "../../services/AuthLogin";
 import { Navigate } from "react-router-dom";
 import { CustomContext } from "../../services/CustomContext";
-import { useState } from "react";
-import { getAuth } from "firebase/auth";
-import { app } from "../../services/FirebaseConfig";
 import {Register} from "../Register/index"
-import { getFirestore, collection,addDoc,
-} from "firebase/firestore";
-import { getDocs } from "firebase/firestore";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { useEffect } from "react";
 import {
 BoxHome, BoxLogin, ButtomLogin,
 InputDeLogin, LoginGoogle,
@@ -22,65 +11,24 @@ RememberPassword,TextLogin,
 TextTittle, Registration
 } from "./style";
 
-
 export const Login = () => {
 
-const { signIn, signed } = useContext(authGoogleContext);
-const  {setTelaCadastro} = useContext(CustomContext); 
-const {loginEmail, setLoginEmail, loginPassword, setLoginPassword} = useContext(CustomContext); 
-    
-const db = getFirestore(app);
-const usersCollectionRef = collection(db, "users");
+const { signIn, signed, loginEnter } = useContext(authLoginContext);
+const {loginEmail, setLoginEmail, loginPassword,
+   setLoginPassword, setTelaCadastro } = useContext(CustomContext); 
+
 
   async function StartGoogle() {
     await signIn();
-  };
-  
-  const auth = getAuth(app); 
+  }; 
 
-const [user, setUser] = useState({});
-
-
-useEffect(()=>{
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
-},[])
-
- 
-
-useEffect(()=>{
-
-},[])
-
-async function loginEnter () { 
-  try {
-    await signInWithEmailAndPassword(
-      auth,
-      loginEmail,
-      loginPassword
-    ).then(async(data)=>{
-      const uid = data.user.uid;
-      const querySnapshot = await getDocs(usersCollectionRef);
-      querySnapshot.forEach((doc) => {
-        if(doc.id === uid){
-          console.log(doc.data());
-          
-        }
-
-      });
-
-    }); 
-
-
-  } catch (error) {
-    console.log(error.message);
+  async function StartEmail() {
+    await loginEnter(); 
   }
-};
- 
- 
-  if (!signed) {
-    return (
+
+  if (!signed) { 
+
+    return ( 
       <BoxHome>
         <TextTittle>
           Plataforma de Estudos Reactjs
@@ -101,7 +49,7 @@ async function loginEnter () {
        value={loginPassword}
        name="password"
         placeholder="***************" />
-      <ButtomLogin onClick={loginEnter}>
+      <ButtomLogin onClick={StartEmail}>
         ENTRAR
       </ButtomLogin>
       <RememberPassword>
