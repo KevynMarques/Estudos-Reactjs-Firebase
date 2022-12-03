@@ -1,14 +1,11 @@
 import React from 'react'
-import { useContext } from 'react';
-import { CustomContext } from '../../services/CustomContext';
-import { useState } from 'react';
 import { BoxHome } from '../Login/style';
 import {IconName, TextName, SeusApontamentos, AddApontamento,
         ContainerInterface, BoxFullName,  MesApontamento, 
         TempoApontamento, BoxApontamentos} from "../LogedGoogle/style"
 
 
-export default function LogedEmail() {  
+export  function UserLogadoEmail() {  
 
 
   return ( 

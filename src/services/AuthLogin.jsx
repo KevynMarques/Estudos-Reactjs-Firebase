@@ -22,6 +22,7 @@ export const authLoginContext = createContext({})
 
 export const AuthLoginProvider = ({ children }) => {
   const [user, setUser] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
   const [userOBJ, setUserOBJ] = useState(null)
   const auth = getAuth(app);
   const db = getFirestore(app);
@@ -72,7 +73,16 @@ export const AuthLoginProvider = ({ children }) => {
 
    //-------------------------------------- LOGIN COM EMAIL E SENHA ----------------------------------  // 
 
-
+   useEffect(() => {
+    const loadStorageData = () => {
+      const storageUser = sessionStorage.getItem("@AuthEmailPassword:dadosUser");
+      const storageToken = sessionStorage.getItem("@AuthEmailPassword:token");
+      if (storageToken && storageUser) {
+        setUserEmail(storageUser);
+      }
+    };
+    loadStorageData();
+  },);
 
    useEffect(()=>{
     onAuthStateChanged(auth, (currentUser) => {
@@ -93,8 +103,9 @@ export const AuthLoginProvider = ({ children }) => {
         querySnapshot.forEach((doc) => {
           if(doc.id === uid){
            const dadosUser = doc.data(); 
-           setUser(dadosUser);
+           setUserEmail(dadosUser);
            sessionStorage.setItem("@AuthEmailPassword:dadosUser", JSON.stringify(dadosUser))
+           sessionStorage.setItem("@AuthEmailPassword:token", JSON.stringify(uid))
           }
   
         });
@@ -109,7 +120,7 @@ export const AuthLoginProvider = ({ children }) => {
 
 
   return (
-    <authLoginContext.Provider value={{ signIn, signed: !!user, signOut, loginEnter, signedEmail: !!user }}>
+    <authLoginContext.Provider value={{ signIn, signed: !!user, signOut, loginEnter, signedEmail: !!userEmail }}>
       {children}
     </authLoginContext.Provider>
   )

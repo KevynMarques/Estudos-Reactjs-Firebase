@@ -69,11 +69,11 @@ const {loginEmail, setLoginEmail, loginPassword,
     )
   }  else if  (signed) {
 
-    return  <Navigate to="/Page2" />
+    return  <Navigate to="/AuthGoogle" />
 
   } else if (signedEmail) {
 
-    return <Navigate to="/Page3" />
+    return <Navigate to="/AuthEmail" />
   }
 
 };
