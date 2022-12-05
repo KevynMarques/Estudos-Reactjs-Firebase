@@ -66,7 +66,7 @@ position: fixed;
 margin-right: 600px;
 color: white;
 font-size: 50px;
-margin-top: -80px;
+margin-top: -180px;
 `; 
 
 export const AddApontamento = styled.button `
@@ -104,6 +104,7 @@ export const BoxFullName = styled.div`
   font-size: 30px;
   display: flex;
   flex-direction: column;
+  margin-top: 120px;
   
  .FullName {
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
@@ -171,5 +172,13 @@ export const TempoApontamento = styled.div`
 }
 `; 
 
+export const LogouCom = styled.h2`
+ font-family: Arial, Helvetica, sans-serif;
+  position: absolute; 
+  margin-top: 350px;
+  color: white; 
+  margin-right: 370px;
+  font-size: 40px;
+`
 
 

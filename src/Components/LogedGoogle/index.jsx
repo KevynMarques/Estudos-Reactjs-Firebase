@@ -5,7 +5,7 @@ import { authLoginContext } from "../../services/AuthLogin";
 import {
   IconName,
   TextName, LogOut, ButtonLogOut, Account, SeusApontamentos,
-  ContainerInterface, BoxFullName, BoxApontamentos, MesApontamento, TempoApontamento, AddApontamento
+  ContainerInterface, BoxFullName,LogouCom
 } from "./style";
 
 
@@ -60,29 +60,15 @@ export const UserLogadoGoogle = () => {
       </IconName>
       {logOut}
       <SeusApontamentos>
-        Meus <br /> apontamentos
+        Meus <br /> Estudo Reactjs
       </SeusApontamentos>
-      <AddApontamento>
-        Adicionar Apontamento
-      </AddApontamento>
       <ContainerInterface>
         <BoxFullName>
-          <p className="FullName">{fullName}</p>
-          <p className="Historico">Historico de apontamentos</p>
-          <BoxApontamentos>
-            <p className="Apontamentos-Tittle">Projetos</p>
-            <MesApontamento>
-              <p className="Apontamento-Mes">
-                Mês
-              </p>
-            </MesApontamento>
-            <TempoApontamento>
-              <p className="Apontamento-Tempo">
-                Tempo
-              </p>
-            </TempoApontamento>
-          </BoxApontamentos>
-        </BoxFullName>
+          <p className="FullName"> Bem vindo : <br></br> {fullName}</p>
+        </BoxFullName> 
+        <LogouCom>
+          Você logou com Google
+        </LogouCom>
       </ContainerInterface>
     </BoxHome>
   );

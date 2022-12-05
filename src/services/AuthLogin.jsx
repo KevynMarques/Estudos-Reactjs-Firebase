@@ -70,6 +70,12 @@ export const AuthLoginProvider = ({ children }) => {
     return <Navigate to="/" />;
   }
 
+  function signOutEmail() {
+    setUserEmail(null);
+    sessionStorage.clear();
+    return <Navigate to="/" />;
+  }
+
 
    //-------------------------------------- LOGIN COM EMAIL E SENHA ----------------------------------  // 
 
@@ -120,7 +126,12 @@ export const AuthLoginProvider = ({ children }) => {
 
 
   return (
-    <authLoginContext.Provider value={{ signIn, signed: !!user, signOut, loginEnter, signedEmail: !!userEmail }}>
+    <authLoginContext.Provider value={{
+       signIn,
+       signed: !!user,
+       signOut, loginEnter
+    , signedEmail: !!userEmail,
+      signOutEmail }}>
       {children}
     </authLoginContext.Provider>
   )

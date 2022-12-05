@@ -2,43 +2,73 @@ import React from 'react'
 import { BoxHome } from '../Login/style';
 import {IconName, TextName, SeusApontamentos, AddApontamento,
         ContainerInterface, BoxFullName,  MesApontamento, 
-        TempoApontamento, BoxApontamentos} from "../LogedGoogle/style"
-
+        TempoApontamento, BoxApontamentos,LogOut, LogouCom, 
+        Account, ButtonLogOut,  } from "../LogedGoogle/style"; 
+import { useState } from 'react';
+import { useContext } from 'react';
+import { authLoginContext } from '../../services/AuthLogin';
 
 export  function UserLogadoEmail() {  
+ 
+  const { signOutEmail } = useContext(authLoginContext);
+
+  function firstLetters(str) {
+    const names = str.split(' ')
+    let initials = ''
+
+    for (let index = 0; index < names.length; index++) {
+      initials += `${names[index][0]}`
+    }
+    return initials;
+  }
+
+  const Name = sessionStorage.getItem('@AuthEmailPassword:dadosUser')
+  const key = JSON.parse(Name);
+
+  const [nameUser, setNameUser] = useState(firstLetters(key.name));
+  const [logOut, setLogOut] = useState(null);
+  const [fullName, setFullName] = useState(key.name);
 
 
-  return ( 
+  
+  function OpenLogOut() {
+    if (logOut === null) {
+      return (
+        <LogOut>
+          <Account>
+            Account
+          </Account>
+          <ButtonLogOut onClick={() => { signOutEmail() }}>
+            Log Out
+          </ButtonLogOut>
+        </LogOut>
+      )
+    } else {
+      setLogOut(null)
+    }
+  }
+
+  return (
     <BoxHome>
-    <IconName>
-      <TextName>
-      </TextName>
-    </IconName>
-    <SeusApontamentos>
-      Meus <br /> apontamentos
-    </SeusApontamentos>
-    <AddApontamento>
-      Adicionar Apontamento
-    </AddApontamento>
-    <ContainerInterface>
-      <BoxFullName>
-        <p className="FullName"></p>
-        <p className="Historico">Historico de apontamentos</p>
-        <BoxApontamentos>
-          <p className="Apontamentos-Tittle">Projetos</p>
-          <MesApontamento>
-            <p className="Apontamento-Mes">
-              Mês
-            </p>
-          </MesApontamento>
-          <TempoApontamento>
-            <p className="Apontamento-Tempo">
-              Tempo
-            </p>
-          </TempoApontamento>
-        </BoxApontamentos>
-      </BoxFullName>
-    </ContainerInterface>
-  </BoxHome>
-);
+      <IconName onClick={() => {
+        setLogOut(OpenLogOut)
+      }}>
+        <TextName>
+          {nameUser}
+        </TextName>
+      </IconName>
+      {logOut}
+      <SeusApontamentos>
+        Meus <br /> Estudo Reactjs
+      </SeusApontamentos>
+      <ContainerInterface>
+        <BoxFullName>
+          <p className="FullName"> Bem vindo: <br></br> {fullName}</p>
+        </BoxFullName>
+        <LogouCom >
+          Você logou com Email
+        </LogouCom>
+      </ContainerInterface>
+    </BoxHome>
+  );
 }
