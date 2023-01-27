@@ -63,7 +63,7 @@ export  function UserLogadoEmail() {
       </SeusApontamentos>
       <ContainerInterface>
         <BoxFullName>
-          <p className="FullName"> Bem vindo: <br></br> {fullName}</p>
+          <p className="FullName"> Bem vindo: <br></br>{fullName}</p>
         </BoxFullName>
         <LogouCom >
           Você logou com Email

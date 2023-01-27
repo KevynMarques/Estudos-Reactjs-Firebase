@@ -74,7 +74,7 @@ export const Register = () => {
           />
           <br></br>
           <br></br>
-          <TextLogin> Novo usuario</TextLogin>
+          <TextLogin>Seu Email</TextLogin>
           <InputDeLogin
             type="email"
             id="email" name="email"
